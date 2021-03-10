@@ -15,8 +15,10 @@ def connection_loop(client)
 end
 
 def connection_receive(client)
-	response = client.gets
-	print response
+	loop do
+		response = client.gets
+		print response
+	end
 end
 
 def connection_start(client)

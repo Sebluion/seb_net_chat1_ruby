@@ -19,6 +19,12 @@ message = "null"
 #	print line
 #end
 
+def connection_send(username, socket)
+	loop do
+		message = gets
+		socket.write "<" + username + "> " + message
+	end
+end
 
 
 print "Input IPv4 adress (without port) to connect to:\n" #client initialization (dunno if i spelled that correctly)
@@ -32,11 +38,14 @@ print "Connection successful!\n"
 
 line = "null"
 
+
+
 loop do #connection loop
-	while (line = socket.gets)
-		print line
-	end
-	message = gets
-	socket.write "<" + username + "> " + message
-	
+	Thread.new{connection_send(username, socket)}
+	#while (line = socket.gets)
+	#	print line
+	#	
+	#end
+	line = socket.gets
+	print line
 end
